@@ -15,7 +15,14 @@ const keys = [
   { note: 'o', color: 'black' },
   { note: 'l', color: 'white' },
   { note: 'p', color: 'black' },
-  { note: 'é', color: 'white' }
+  { note: 'é', color: 'white' },
+  { note: 'y', color: 'white' },
+  { note: 'x', color: 'black' },
+  { note: 'c', color: 'white' },
+  { note: 'v', color: 'black' },
+  { note: 'b', color: 'white' },
+  { note: 'n', color: 'black' },
+  { note: 'm', color: 'white' },
 ];
 
 const volumeSlider = document.querySelector("#customRange1")
