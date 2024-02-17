@@ -68,6 +68,6 @@ const handleSwitch = () => {
   document.querySelectorAll(".key").forEach((key) => key.classList.toggle("hide"));
 }
 
-switchKeysChars.addEventListener("click", handleSwitch)
+switchKeysChars.addEventListener("click", handleSwitch) 
 
-renderPiano()
+document.addEventListener("DOMContentLoaded", renderPiano)
