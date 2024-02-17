@@ -18,12 +18,12 @@ const keys = [
   { note: 'é', color: 'white' }
 ];
 
-const pianoKeys = document.querySelector("#pianoKeys")
 const volumeSlider = document.querySelector("#customRange1")
 const switchKeysChars = document.querySelector("#flexSwitchCheckChecked")
 let currentVolume = 0.5;
 
 const renderPiano = () => {
+  const pianoKeys = document.querySelector("#pianoKeys")
   const ul = document.createElement("ul")
   ul.className = "d-flex list-unstyled mt-3"
 
@@ -32,6 +32,8 @@ const renderPiano = () => {
     li.className = `key ${key.color}`
     li.setAttribute("data-key", key.note)
     li.innerHTML = `<span>${key.note}</span>`
+    li.addEventListener('click', () => playAudioByClick(key.note));
+
     ul.appendChild(li) 
   })
 
@@ -39,7 +41,7 @@ const renderPiano = () => {
 }
 
 
-const playAudio = (event) => {
+const playAudioByKeyBoard = (event) => {
   const keyElement = document.querySelector(`.key[data-key="${event.key}"]`);
   
   if (keyElement) {
@@ -53,8 +55,22 @@ const playAudio = (event) => {
     }, 250);
   }
 }
+const playAudioByClick = (note) => {
+  const keyElement = document.querySelector(`.key[data-key="${note}"]`);
+  
+  if (keyElement) {
+    const audio = new Audio(`sounds/${note}.ogg`);
+    audio.volume = currentVolume
+    audio.play();
+    keyElement.classList.add("active"); 
 
-document.addEventListener('keydown', playAudio);
+    setTimeout(() => {
+      keyElement.classList.remove("active");
+    }, 250);
+  }
+}
+
+document.addEventListener('keydown', playAudioByKeyBoard);
 
 
 const handleVolume = (event) => {
