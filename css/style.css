@@ -12,3 +12,103 @@ body {
   min-height: 100vh;
   background: url(../images/music.jpg) no-repeat 100% 70%;
 }
+
+.heart {
+  color: #ab1f1f;
+}
+
+.piano {
+  padding: 35px 40px;
+  border-radius: 20px;
+  background: linear-gradient(#1c1c1c, #414141);
+}
+
+.piano-header{
+  color: #fff;
+}
+
+.key {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  text-transform: uppercase;
+}
+.black {
+  z-index: 2;
+  width: 44px;
+  height: 140px;
+  margin: 0 -22px 0 -22px;
+  border-radius: 0 0 5px 5px;
+  background: #000;
+}
+.black.active {
+  box-shadow: inset -5px -10px 10px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to bottom, #000, #434343);
+}
+.white {
+  height: 230px;
+  width: 70px;
+  border-radius: 8px;
+  border: 1px solid #000;
+  background: linear-gradient(#fff 96%, #eee 4%);
+}
+
+.white.active {
+  box-shadow: inset -5px 5px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+}
+.key span {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  color: #000;
+  font-size: 1.13rem;
+  text-align: center;
+}
+.key.hide span {
+  display: none;
+}
+.black span {
+  bottom: 13px;
+  color: #fff;
+}
+
+@media screen and(max-width:815px) {
+  .wrapper {
+    padding: 25px;
+  }
+  header {
+    flex-direction: column;
+  }
+  header :where(h2, .column) {
+    margin-bottom: 13px;
+  }
+  .volume-slider input {
+    max-width: 100px;
+  }
+
+  .key:where(:nth-child(9), :nth-child(10)) {
+    display: none;
+  }
+  .black {
+    height: 100px;
+    width: 40px;
+    margin: 0 -20px 0 -20px;
+  }
+  .white {
+    height: 180px;
+    width: 60px;
+  }
+}
+@media screen and(max-width:615px) {
+  .key:nth-child(13),
+  .key:nth-child(14),
+  .key:nth-child(15),
+  .key:nth-child(16),
+  .key:nth-child(17) {
+    display: none;
+  }
+  .white {
+    width: 50px;
+  }
+}
