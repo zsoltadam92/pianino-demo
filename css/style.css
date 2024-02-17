@@ -10,5 +10,5 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-image: url(/images/sounds.jpg);
+  background: url(../images/music-794506_1920.jpg) no-repeat 100% 70%;
 }
