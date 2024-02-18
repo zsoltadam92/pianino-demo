@@ -27,7 +27,16 @@ const keys = [
 
 const volumeSlider = document.querySelector("#customRange1")
 const switchKeysChars = document.querySelector("#flexSwitchCheckChecked")
+let audioFiles = {}
 let currentVolume = 0.5;
+
+const preloadAudioFiles = () => {
+  keys.forEach(key => {
+    const audio = new Audio(`sounds/${key.note}.ogg`)
+    audio.load() // Explicitly call load to start preloading
+    audioFiles[key.note] = audio// Store the loaded audio object
+  })
+}
 
 const renderPiano = () => {
   const pianoKeys = document.querySelector("#pianoKeys")
@@ -39,7 +48,7 @@ const renderPiano = () => {
     li.className = `key ${key.color}`
     li.setAttribute("data-key", key.note)
     li.innerHTML = `<span>${key.note}</span>`
-    li.addEventListener('click', () => playAudioByClick(key.note));
+    li.addEventListener('click', () => playAudio(key.note));
 
     ul.appendChild(li) 
   })
@@ -48,36 +57,31 @@ const renderPiano = () => {
 }
 
 
-const playAudioByKeyBoard = (event) => {
-  const keyElement = document.querySelector(`.key[data-key="${event.key}"]`);
+const playAudio = (note) => {
   
-  if (keyElement) {
-    const audio = new Audio(`sounds/${event.key}.ogg`);
+  const audio = audioFiles[note]; // Retrieve pre-loaded audio
+  if (audio) {
+    audio.currentTime = 0; // Reset the audio playback to the start
     audio.volume = currentVolume
     audio.play();
-    keyElement.classList.add("active"); 
-
-    setTimeout(() => {
-      keyElement.classList.remove("active");
-    }, 250);
-  }
-}
-const playAudioByClick = (note) => {
-  const keyElement = document.querySelector(`.key[data-key="${note}"]`);
   
-  if (keyElement) {
-    const audio = new Audio(`sounds/${note}.ogg`);
-    audio.volume = currentVolume
-    audio.play();
-    keyElement.classList.add("active"); 
-
-    setTimeout(() => {
-      keyElement.classList.remove("active");
-    }, 250);
+    const keyElement = document.querySelector(`.key[data-key="${note}"]`);
+    if (keyElement) {
+      keyElement.classList.add("active"); 
+  
+      setTimeout(() => {
+        keyElement.classList.remove("active");
+      }, 250);
+    }
   }
 }
 
-document.addEventListener('keydown', playAudioByKeyBoard);
+document.addEventListener('keydown',  (event) => {
+  // Ensure we play the note only if it's pre-loaded
+  if (audioFiles[event.key]) {
+    playAudio(event.key);
+  }
+});
 
 
 const handleVolume = (event) => {
@@ -93,4 +97,8 @@ const handleSwitch = () => {
 
 switchKeysChars.addEventListener("click", handleSwitch) 
 
-document.addEventListener("DOMContentLoaded", renderPiano)
+// Call preloadAudioFiles during page initialization or when the piano component is mounted
+document.addEventListener("DOMContentLoaded", () => {
+  preloadAudioFiles(); // Pre-load audio files
+  renderPiano(); // Render the piano keys
+});
