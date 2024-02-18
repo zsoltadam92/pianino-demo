@@ -10,7 +10,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: url(../images/music.jpg) no-repeat 100% 70%;
+  background: url(../images/music.jpg)  100% 70%;
 }
 
 .heart {
@@ -79,23 +79,8 @@ body {
   transform-origin: center;
 }
 
-@media screen and(max-width:815px) {
-  .wrapper {
-    padding: 25px;
-  }
-  header {
-    flex-direction: column;
-  }
-  header :where(h2, .column) {
-    margin-bottom: 13px;
-  }
-  .volume-slider input {
-    max-width: 100px;
-  }
+@media screen and (max-width:815px) {
 
-  .key:where(:nth-child(9), :nth-child(10)) {
-    display: none;
-  }
   .black {
     height: 100px;
     width: 40px;
@@ -106,15 +91,15 @@ body {
     width: 60px;
   }
 }
-@media screen and(max-width:615px) {
-  .key:nth-child(13),
-  .key:nth-child(14),
-  .key:nth-child(15),
-  .key:nth-child(16),
-  .key:nth-child(17) {
-    display: none;
-  }
+@media screen and (max-width:615px) {
+
   .white {
+    height: 180px;
     width: 50px;
+  }
+  .black {
+    height: 100px;
+    width: 36px;
+    margin: 0 -18px 0 -18px;
   }
 }
