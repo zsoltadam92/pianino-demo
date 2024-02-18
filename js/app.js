@@ -102,3 +102,39 @@ document.addEventListener("DOMContentLoaded", () => {
   preloadAudioFiles(); // Pre-load audio files
   renderPiano(); // Render the piano keys
 });
+
+
+let startDistance = null;
+let scale = 1;
+
+const zoomableElement = document.getElementById('zoomableElement');
+
+// Function to calculate distance between two touch points
+function getDistance(touches) {
+  return Math.sqrt(Math.pow(touches[0].pageX - touches[1].pageX, 2) +
+                  Math.pow(touches[0].pageY - touches[1].pageY, 2));
+}
+
+// Touchstart event to initialize the startDistance
+zoomableElement.addEventListener('touchstart', function(e) {
+  if (e.touches.length === 2) { // Ensure two fingers are used
+    startDistance = getDistance(e.touches);
+    e.preventDefault(); // Prevent page scrolling
+  }
+}, { passive: false });
+
+// Touchmove event to adjust scale based on finger movement
+zoomableElement.addEventListener('touchmove', function(e) {
+  if (e.touches.length === 2) {
+    const currentDistance = getDistance(e.touches);
+    if (startDistance) {
+      // Calculate the scale factor and adjust the element's scale
+      let scaleFactor = currentDistance / startDistance;
+      scale *= scaleFactor;
+      zoomableElement.style.transform = `scale(${scale})`;
+      // Reset startDistance for the next move event
+      startDistance = currentDistance;
+    }
+    e.preventDefault(); // Prevent page scrolling
+  }
+}, { passive: false });

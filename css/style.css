@@ -73,6 +73,12 @@ body {
   color: #fff;
 }
 
+.zoomable {
+  width: 100%;
+  max-width: 1800px; /* Adjust as necessary */
+  transform-origin: center;
+}
+
 @media screen and(max-width:815px) {
   .wrapper {
     padding: 25px;
